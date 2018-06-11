@@ -50,7 +50,7 @@ public class Utils {
             HttpResponse response = httpClient.execute(request);
             HttpEntity entity = response.getEntity();
             JSONObject j = new JSONObject(EntityUtils.toString(entity, "UTF-8"));
-            if(j.get("status").toString().equals("error")) throw new Exception(j.get("message").toString());
+            if(j.get("status").toString().equals("error")) throw new Exception(j.get("error").toString());
             return j;
         } finally {
             httpClient.close();
@@ -66,7 +66,7 @@ public class Utils {
             HttpResponse response = httpClient.execute(request);
             HttpEntity entity = response.getEntity();
             JSONObject j = new JSONObject(EntityUtils.toString(entity, "UTF-8"));
-            if(j.get("status").toString().equals("error")) throw new Exception(j.get("message").toString());
+            if(j.get("status").toString().equals("error")) throw new Exception(j.get("error").toString());
             return j;
         } finally {
             httpClient.close();

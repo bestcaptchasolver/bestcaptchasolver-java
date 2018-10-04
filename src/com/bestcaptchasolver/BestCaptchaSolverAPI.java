@@ -94,13 +94,14 @@ public class BestCaptchaSolverAPI {
      * @return
      * @throws Exception
      */
-    public String retrieve(int id) throws Exception{
+    public JSONObject retrieve(int id) throws Exception{
         String url = String.format("%s/captcha/%d?access_token=%s", BASE_URL, id, this._access_token);
         JSONObject resp_json = Utils.GET(url);
-        if(resp_json.getString("status").equals("pending")) return null;     // still pending
-        if(resp_json.has("gresponse")) return resp_json.getString("gresponse");
-        if(resp_json.has("text")) return resp_json.getString("text");
-        return null;
+        JSONObject jsPending = new JSONObject();
+        jsPending.put("gresponse", "");
+        jsPending.put("text", "");
+        if(resp_json.getString("status").equals("pending")) return jsPending;     // still pending
+        return resp_json;
     }
 
     // Set captcha bad

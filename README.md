@@ -6,6 +6,11 @@ bestcaptchasolverapi is a super easy to use bypass captcha Java API wrapper for 
     
     git clone https://github.com/bestcaptchasolver/bestcaptchasolver-java
 
+## Dependencies
+
+    org.apache.httpcomponents:httpclient
+    org.json:json
+
 ## How to use?
 
 Simply import the library, set the auth details and start using the captcha service:
@@ -41,10 +46,10 @@ Takes a 2nd argument, **case_sensitive** which is a bool (optional)
 Once you have the captchaID, you can check for it's completion
 ```
 int id = bcs.submit_image_captcha("/home/me/Desktop/captcha.jpg"); 
-String image_text = null;
-while(image_text == null)
+String image_text = "";
+while(image_text.equals(""))
 {
-    image_text = bcs.retrieve(id);
+    image_text = bcs.retrieve(id).getString("text");
     Thread.sleep(2000);
 }
 ```
@@ -65,12 +70,18 @@ Same as before, this returns an ID which is used to regulary check for completio
 
 ```java
 id = bcs.submit_recaptcha(page_url, site_key);
-String gresponse = null;
-while (gresponse == null)
+String gresponse = "";
+while (gresponse.equals(""))
 {
-     gresponse = bcs.retrieve(id);
+     gresponse = bcs.retrieve(id).getString("gresponse");
      Thread.sleep(5000);
 }
+```
+
+## If submitted with proxy, get proxy status
+
+```java
+String proxy_status = bcs.retrieve(id).getString("proxy_status");
 ```
 
 ## Set captcha bad

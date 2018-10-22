@@ -37,14 +37,17 @@ System.out.println(String.Format("Balance: %s", balance));
 ## Submit image captcha
 
 ``` java
-int id = bcs.submit_image_captcha("/home/me/Desktop/captcha.jpg");
+Map<String, String> d = new HashMap<String, String>();
+d.put("image", "/home/me/Desktop/captcha.jpg");
 ```
-Takes a 2nd argument, **case_sensitive** which is a bool (optional)
 
+#### Optional parameters
+- case_sensitive - can be a string with value `true` or `false`
+- affiliate_id - ID of affiliate
 ## Retrieve image captcha text
 
 Once you have the captchaID, you can check for it's completion
-```
+``` java
 int id = bcs.submit_image_captcha("/home/me/Desktop/captcha.jpg"); 
 String image_text = "";
 while(image_text.equals(""))
@@ -56,13 +59,23 @@ while(image_text.equals(""))
 
 ## Submit recaptcha details
 
-For recaptcha submission there are two things that are required.
+For recaptcha submission there are two things that are required and some that are optional
 - page_url
 - site_key
-- proxy (optional), works in this format `12.34.56.78:1234` or `user:password@12.34.56.78:1234`
+- type (optional)
+- v3_action (optional)
+- v3_min_score (optional)
+- user_agent (optional)
+- affiliate_id (optional)
+- proxy (optional)
+
+For more details about the parameters check [/api](https://bestcaptchasolver.com/api) page
 
 ``` java
-id = bcs.submit_recaptcha(page_url, site_key);
+Map<String,String> rd = new HashMap<String, String>();
+rd.put("page_url", PAGE_URL);
+rd.put("site_key", SITE_KEY);
+id = bcs.submit_recaptcha(rd);     // works with proxy as well, check bottom of page file for examples
 ```
 Same as before, this returns an ID which is used to regulary check for completion
 

@@ -38,17 +38,19 @@ System.out.println(String.Format("Balance: %s", balance));
 
 ``` java
 Map<String, String> d = new HashMap<String, String>();
-d.put("image", "/home/me/Desktop/captcha.jpg");
+d.put("image", "/home/me/Desktop/captcha.png");     // give it an ABSOLUTE path or b64encoded string
+// d.put("is_case", "true");        // if case sensitive set to true, default: false, optional
+// d.put("is_phrase", "true");      // if phrase, set to true, default: false, optional
+// d.put("is_math", "true");        // true if captcha is math, default: false, optional
+// d.put("alphanumeric", "1");      // 1 (digits only) or 2 (letters only), default: all characters, optional
+// d.put("minlength", "2");         // minimum length of captcha text, default: any, optional
+// d.put("maxlength", "4");         // maximum length of captcha text, default: any, optional
+// d.put("affiliate_id", "your_affiliate_id");      // get it from /account
+int id = bcs.submit_image_captcha(d);     // works with 2nd parameter as well, case sensitivty
 ```
-
-#### Optional parameters
-- case_sensitive - can be a string with value `true` or `false`
-- affiliate_id - ID of affiliate
-## Retrieve image captcha text
 
 Once you have the captchaID, you can check for it's completion
 ``` java
-int id = bcs.submit_image_captcha("/home/me/Desktop/captcha.jpg"); 
 String image_text = "";
 while(image_text.equals(""))
 {
@@ -79,19 +81,46 @@ id = bcs.submit_recaptcha(rd);     // works with proxy as well, check bottom of 
 ```
 Same as before, this returns an ID which is used to regulary check for completion
 
-## Retrieve captcha response
+
+## Submit Geetest
+- domain
+- gt
+- challenge
 
 ```java
-id = bcs.submit_recaptcha(page_url, site_key);
+Map<String,String> rd = new HashMap<String, String>();
+rd.put("domain", "DOMAIN_HERE");
+rd.put("gt", "GT_HERE");
+rd.put("challenge", "CHALLENGE_HERE");
+// rd.put("affiliate_id", "your_affiliate_id");      // get it from /account
+int id = bcs.submit_geetest(rd);
+```
+
+## Submit Capy
+- page_url
+- site_key
+
+```java
+Map<String,String> rd = new HashMap<String, String>();
+rd.put("page_url", "PAGE_URL_HERE");
+rd.put("site_key", "SITE_KEY_HERE");
+// rd.put("affiliate_id", "your_affiliate_id");      // get it from /account
+int id = bcs.submit_capy(rd);
+```
+
+## Retrieve response (all captchas)
+
+```java
 String gresponse = "";
 while (gresponse.equals(""))
 {
-     gresponse = bcs.retrieve(id).getString("gresponse");
+     gresponse = bcs.retrieve(id).getString("gresponse");	// can be also `text` or `solution` instead of `gresponse`
      Thread.sleep(5000);
 }
 ```
 
-## If submitted with proxy, get proxy status
+
+## If reCAPTCHA is submitted with proxy, get proxy status
 
 ```java
 String proxy_status = bcs.retrieve(id).getString("proxy_status");

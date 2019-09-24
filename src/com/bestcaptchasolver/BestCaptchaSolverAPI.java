@@ -25,7 +25,7 @@ public class BestCaptchaSolverAPI {
     }
 
     /**
-     * Submit image path (with case sensitivity param)
+     * Submit image path (with optional parameters)
      * @param opts
      * @return
      */
@@ -41,18 +41,34 @@ public class BestCaptchaSolverAPI {
         // add params to for request body to json object
         req_json.put("access_token", this._access_token);
         req_json.put("b64image", absolute_path);
-        // case sensitive
-        if(opts.containsKey("case_sensitive")) {
-            if (opts.get("case_sensitive").equals("true")) req_json.put("case_sensitive", 1);      // add sensitivity, if set
+
+        // optional parameters
+        if (opts.containsKey("case_sensitive"))
+        {
+            if (opts.get("case_sensitive").equals("true")) req_json.put("is_case", "true");
         }
-        // affiliate id
+        if (opts.containsKey("is_case"))
+        {
+            if (opts.get("is_case").equals("true")) req_json.put("is_case", "true");
+        }
+        if (opts.containsKey("is_phrase"))
+        {
+            if (opts.get("is_phrase").equals("true")) req_json.put("is_phrase", "true");
+        }
+        if (opts.containsKey("is_math"))
+        {
+            if (opts.get("is_math").equals("true")) req_json.put("is_math", "true");
+        }
+        if (opts.containsKey("alphanumeric")) req_json.put("alphanumeric", opts.get("alphanumeric"));
+        if (opts.containsKey("minlength")) req_json.put("minlength", opts.get("minlength"));
+        if (opts.containsKey("maxlength")) req_json.put("maxlength", opts.get("maxlength"));
         if(opts.containsKey("affiliate_id")) req_json.put("affiliate_id", opts.get("affiliate_id"));
         JSONObject resp_json = Utils.POST(url, req_json);
         return Integer.parseInt(resp_json.get("id").toString());
     }
 
     /**
-     * Submit recaptcha and get back captcha ID (with proxy)
+     * Submit reCAPTCHA and get back captcha ID (with proxy)
      * @param opts
      * @return
      * @throws Exception
@@ -81,7 +97,44 @@ public class BestCaptchaSolverAPI {
     }
 
     /**
-     * Retrieve captcha [gresponse|text] based on captcha ID
+     * Submit GeeTest and get back captcha ID
+     * @param opts
+     * @return
+     * @throws Exception
+     */
+    public int submit_geetest(Map<String, String> opts) throws Exception{
+        String url = String.format("%s/captcha/geetest", this.BASE_URL);
+        JSONObject req_json = new JSONObject();
+        // add params to for request body to json object
+        req_json.put("access_token", this._access_token);
+        req_json.put("domain", opts.get("domain"));
+        req_json.put("gt", opts.get("gt"));
+        req_json.put("challenge", opts.get("challenge"));
+        if (opts.containsKey("affiliate_id")) req_json.put("affiliate_id", opts.get("affiliate_id"));
+        JSONObject resp_json = Utils.POST(url, req_json);
+        return Integer.parseInt(resp_json.get("id").toString());
+    }
+
+    /**
+     * Submit Capy and get back captcha ID
+     * @param opts
+     * @return
+     * @throws Exception
+     */
+    public int submit_capy(Map<String, String> opts) throws Exception{
+        String url = String.format("%s/captcha/capy", this.BASE_URL);
+        JSONObject req_json = new JSONObject();
+        // add params to for request body to json object
+        req_json.put("access_token", this._access_token);
+        req_json.put("page_url", opts.get("page_url"));
+        req_json.put("site_key", opts.get("site_key"));
+        if (opts.containsKey("affiliate_id")) req_json.put("affiliate_id", opts.get("affiliate_id"));
+        JSONObject resp_json = Utils.POST(url, req_json);
+        return Integer.parseInt(resp_json.get("id").toString());
+    }
+
+    /**
+     * Retrieve captcha [gresponse|text|solution] based on captcha ID
      * @param id
      * @return
      * @throws Exception
@@ -92,7 +145,15 @@ public class BestCaptchaSolverAPI {
         JSONObject jsPending = new JSONObject();
         jsPending.put("gresponse", "");
         jsPending.put("text", "");
+        jsPending.put("solution", "");
         if(resp_json.getString("status").equals("pending")) return jsPending;     // still pending
+        try {
+            // for geetest
+            if (resp_json.has("solution")) resp_json.put("solution", resp_json.getJSONObject("solution").toString());
+        }
+        catch(Exception ex){
+
+        }
         return resp_json;
     }
 

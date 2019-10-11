@@ -108,6 +108,18 @@ rd.put("site_key", "SITE_KEY_HERE");
 int id = bcs.submit_capy(rd);
 ```
 
+## Submit hCaptcha
+- page_url
+- site_key
+
+```java
+Map<String,String> rd = new HashMap<String, String>();
+rd.put("page_url", "PAGE_URL_HERE");
+rd.put("site_key", "SITE_KEY_HERE");
+// rd.put("affiliate_id", "your_affiliate_id");      // get it from /account
+int id = bcs.submit_hcaptcha(rd);
+```
+
 ## Retrieve response (all captchas)
 
 ```java

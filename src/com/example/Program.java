@@ -100,6 +100,25 @@ public class Program {
         System.out.println(String.format("Capy solution: %s", solution));
         // bcs.set_captcha_bad(id);       // set captcha bad using captcha ID
     }
+    private static void test_hcaptcha() throws Exception{
+        // get balance
+        String balance = bcs.account_balance();
+        System.out.println(String.format("Balance: %s", balance));
+
+        System.out.println("Solving hCaptcha ...");
+        Map<String,String> rd = new HashMap<String, String>();
+        rd.put("page_url", "PAGE_URL_HERE");
+        rd.put("site_key", "SITE_KEY_HERE");
+        // rd.put("affiliate_id", "your_affiliate_id");      // get it from /account
+        int id = bcs.submit_hcaptcha(rd);
+        String solution = "";
+        while(solution.equals("")){          // while still in completion / solving process
+            solution = bcs.retrieve(id).getString("solution");
+            Thread.sleep(2000);
+        }
+        System.out.println(String.format("Capy solution: %s", solution));
+        // bcs.set_captcha_bad(id);       // set captcha bad using captcha ID
+    }
     // main/run method
     public static void main(String[] args) {
         try {
@@ -107,6 +126,7 @@ public class Program {
             // test_recaptcha();
             // test_geetest();
             // test_capy();
+            // test_hcaptcha();
         }
         catch(Exception ex){
             System.out.println(String.format("[!] Error: %s", ex.getMessage()));

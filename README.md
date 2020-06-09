@@ -67,6 +67,7 @@ For recaptcha submission there are two things that are required and some that ar
 - type (optional)
 - v3_action (optional)
 - v3_min_score (optional)
+- data_s (optional)
 - user_agent (optional)
 - affiliate_id (optional)
 - proxy (optional)

@@ -49,6 +49,7 @@ public class Program {
         // rd.put("type", "1");        // 1 - regular, 2 - invisible, 3 - v3, default: 1
         // rd.put("v3_action", "home");    // action used when solving v3 reCaptcha
         // rd.put("v3_min_score", "0.3");  // min score to target when solving v3
+        // rd.put("data_s", "recaptcha data-s parameter used in loading reCAPTCHA");  // optional
         // rd.put("proxy", "user:pass@191.123.43.34");     // proxy with/out authentication
         // rd.put("affiliate_id", "your_affiliate_id");      // get it from /account
         int id = bcs.submit_recaptcha(rd);     // works with proxy as well, check bottom of page file for examples

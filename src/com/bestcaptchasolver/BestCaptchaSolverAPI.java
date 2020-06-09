@@ -90,6 +90,7 @@ public class BestCaptchaSolverAPI {
         if (opts.containsKey("type")) req_json.put("type", opts.get("type"));
         if (opts.containsKey("v3_action")) req_json.put("v3_action", opts.get("v3_action"));
         if (opts.containsKey("v3_min_score")) req_json.put("v3_min_score", opts.get("v3_min_score"));
+        if (opts.containsKey("data_s")) req_json.put("data_s", opts.get("data_s"));
         if (opts.containsKey("user_agent")) req_json.put("user_agent", opts.get("user_agent"));
         if (opts.containsKey("affiliate_id")) req_json.put("affiliate_id", opts.get("affiliate_id"));
         JSONObject resp_json = Utils.POST(url, req_json);

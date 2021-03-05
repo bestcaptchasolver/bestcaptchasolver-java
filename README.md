@@ -3,7 +3,7 @@ BestCaptchaSolver Java API wrapper
 bestcaptchasolverapi is a super easy to use bypass captcha Java API wrapper for bestcaptchasolver.com captcha service
 
 ## Installation
-    
+
     git clone https://github.com/bestcaptchasolver/bestcaptchasolver-java
 
 ## Dependencies
@@ -126,6 +126,24 @@ rd.put("site_key", "SITE_KEY_HERE");
 // rd.put("affiliate_id", "your_affiliate_id");      // get it from /account
 int id = bcs.submit_hcaptcha(rd);
 ```
+
+## Submit FunCaptcha (Arkose Labs)
+
+- page_url
+- s_url
+- site_key
+
+```java
+Map<String,String> rd = new HashMap<String, String>();
+rd.put("page_url", "https://abc.com");
+rd.put("s_url", "https://api.arkoselabs.com");
+rd.put("site_key", "11111111-1111-1111-1111-111111111111");
+// rd.put("data", "{\"x\":\"y\"}");      // optional
+// rd.put("affiliate_id", "your_affiliate_id");      // optional, get it from /account
+int id = bcs.submit_funcaptcha(rd);
+```
+
+
 
 ## Retrieve response (all captchas)
 

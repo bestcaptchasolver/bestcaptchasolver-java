@@ -131,14 +131,36 @@ public class Program {
         System.out.println(String.format("Capy solution: %s", solution));
         // bcs.set_captcha_bad(id);       // set captcha bad using captcha ID
     }
+    private static void test_funcaptcha() throws Exception{
+        // get balance
+        String balance = bcs.account_balance();
+        System.out.println(String.format("Balance: %s", balance));
+
+        System.out.println("Solving funcaptcha ...");
+        Map<String,String> rd = new HashMap<String, String>();
+        rd.put("page_url", "https://abc.com");
+        rd.put("s_url", "https://api.arkoselabs.com");
+        rd.put("site_key", "11111111-1111-1111-1111-111111111111");
+        // rd.put("data", "{\"x\":\"y\"}");      // optional
+        // rd.put("affiliate_id", "your_affiliate_id");      // optional, get it from /account
+        int id = bcs.submit_funcaptcha(rd);
+        String solution = "";
+        while(solution.equals("")){          // while still in completion / solving process
+            solution = bcs.retrieve(id).getString("solution");
+            Thread.sleep(2000);
+        }
+        System.out.println(String.format("Solution: %s", solution));
+        // bcs.set_captcha_bad(id);       // set captcha bad using captcha ID
+    }
     // main/run method
     public static void main(String[] args) {
         try {
-            test_image();
-            // test_recaptcha();
+            // test_image();
+            test_recaptcha();
             // test_geetest();
             // test_capy();
             // test_hcaptcha();
+            // test_funcaptcha();
         }
         catch(Exception ex){
             System.out.println(String.format("[!] Error: %s", ex.getMessage()));

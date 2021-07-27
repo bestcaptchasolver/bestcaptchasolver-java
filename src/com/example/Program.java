@@ -83,6 +83,7 @@ public class Program {
         rd.put("domain", "DOMAIN_HERE");
         rd.put("gt", "GT_HERE");
         rd.put("challenge", "CHALLENGE_HERE");
+        // rd.put("api_server", "GT_DOMAIN_HERE"); // optional
         // rd.put("affiliate_id", "your_affiliate_id");      // get it from /account
         int id = bcs.submit_geetest(rd);
         String solution = "";

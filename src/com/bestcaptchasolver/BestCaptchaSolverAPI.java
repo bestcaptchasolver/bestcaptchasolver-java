@@ -118,6 +118,24 @@ public class BestCaptchaSolverAPI {
     }
 
     /**
+     * Submit GeeTestV4 and get back captcha ID
+     * @param opts
+     * @return
+     * @throws Exception
+     */
+    public int submit_geetest_v4(Map<String, String> opts) throws Exception{
+        String url = String.format("%s/captcha/geetestv4", this.BASE_URL);
+        JSONObject req_json = new JSONObject();
+        // add params to for request body to json object
+        req_json.put("access_token", this._access_token);
+        req_json.put("domain", opts.get("domain"));
+        req_json.put("captchaid", opts.get("captchaid"));
+        if (opts.containsKey("affiliate_id")) req_json.put("affiliate_id", opts.get("affiliate_id"));
+        JSONObject resp_json = Utils.POST(url, req_json);
+        return Integer.parseInt(resp_json.get("id").toString());
+    }
+
+    /**
      * Submit Capy and get back captcha ID
      * @param opts
      * @return

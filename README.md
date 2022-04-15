@@ -105,7 +105,22 @@ rd.put("challenge", "CHALLENGE_HERE");
 int id = bcs.submit_geetest(rd);
 ```
 
+## Submit GeetestV4
+
+- domain
+- captchaid
+
+**Important:** This is not the captchaid that's in our system that you receive while submitting a captcha. Gather this from HTML source of page with geetestv4 captcha, inside the `<script>` tag you'll find a link that looks like this: https://i.imgur.com/XcZd47y.png
+
+```java
+Map<String,String> rd = new HashMap<String, String>();
+rd.put("domain", "https://example.com");
+rd.put("captchaid", "647f5ed2ed8acb4be36784e01556bb71");
+int id = bcs.submit_geetest_v4(rd);
+```
+
 ## Submit Capy
+
 - page_url
 - site_key
 

@@ -83,7 +83,6 @@ public class Program {
         rd.put("domain", "DOMAIN_HERE");
         rd.put("gt", "GT_HERE");
         rd.put("challenge", "CHALLENGE_HERE");
-        // rd.put("api_server", "GT_DOMAIN_HERE"); // optional
         // rd.put("affiliate_id", "your_affiliate_id");      // get it from /account
         int id = bcs.submit_geetest(rd);
         String solution = "";
@@ -92,6 +91,25 @@ public class Program {
             Thread.sleep(2000);
         }
         System.out.println(String.format("Geetest solution: %s", solution));
+        // bcs.set_captcha_bad(id);       // set captcha bad using captcha ID
+    }
+    private static void test_geetestv4() throws Exception{
+        // get balance
+        String balance = bcs.account_balance();
+        System.out.println(String.format("Balance: %s", balance));
+
+        System.out.println("Solving geetestv4 ...");
+        Map<String,String> rd = new HashMap<String, String>();
+        rd.put("domain", "https://example.com");
+        rd.put("captchaid", "647f5ed2ed8acb4be36784e01556bb71");
+        // rd.put("affiliate_id", "your_affiliate_id");      // get it from /account
+        int id = bcs.submit_geetest_v4(rd);
+        String solution = "";
+        while(solution.equals("")){          // while still in completion / solving process
+            solution = bcs.retrieve(id).getString("solution");
+            Thread.sleep(2000);
+        }
+        System.out.println(String.format("Geetestv4 solution: %s", solution));
         // bcs.set_captcha_bad(id);       // set captcha bad using captcha ID
     }
     private static void test_capy() throws Exception{
@@ -159,6 +177,7 @@ public class Program {
             // test_image();
             test_recaptcha();
             // test_geetest();
+            // test_geetestv4();
             // test_capy();
             // test_hcaptcha();
             // test_funcaptcha();

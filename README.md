@@ -135,11 +135,19 @@ int id = bcs.submit_capy(rd);
 ## Submit hCaptcha
 - page_url
 - site_key
+- invisible (optional)
+- payload (optional)
+- user_agent (optional)
+- proxy (optional)
 
 ```java
 Map<String,String> rd = new HashMap<String, String>();
 rd.put("page_url", "PAGE_URL_HERE");
 rd.put("site_key", "SITE_KEY_HERE");
+// rd.put("invisible", "1");
+// rd.put("payload", "{\"rqdata\": \"from web requests\"}");
+// rd.put("user_agent", "your UA");
+// rd.put("proxy", "12.34.56.78:1234");
 // rd.put("affiliate_id", "your_affiliate_id");      // get it from /account
 int id = bcs.submit_hcaptcha(rd);
 ```
@@ -158,6 +166,25 @@ rd.put("site_key", "11111111-1111-1111-1111-111111111111");
 // rd.put("data", "{\"x\":\"y\"}");      // optional
 // rd.put("affiliate_id", "your_affiliate_id");      // optional, get it from /account
 int id = bcs.submit_funcaptcha(rd);
+```
+
+## Submit Task
+
+- template_name
+- page_url
+- variables
+- user_agent (optional)
+- proxy (optional)
+
+```java
+Map<String,String> rd = new HashMap<String, String>();
+rd.put("template_name", "Login test page");
+rd.put("page_url", "https://bestcaptchasolver.com/automation/login");
+rd.put("variables", "{\"username\": \"xyz\", \"password\": \"0000\"}");
+// rd.put("user_agent", "your UA");
+// rd.put("proxy", "12.34.56.78:1234");
+// rd.put("affiliate_id", "your_affiliate_id");      // optional, get it from /account
+int id = bcs.submit_task(rd);
 ```
 
 

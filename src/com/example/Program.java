@@ -140,6 +140,10 @@ public class Program {
         Map<String,String> rd = new HashMap<String, String>();
         rd.put("page_url", "PAGE_URL_HERE");
         rd.put("site_key", "SITE_KEY_HERE");
+        // rd.put("invisible", "1");
+        // rd.put("payload", "{\"rqdata\": \"from web requests\"}");
+        // rd.put("user_agent", "your UA");
+        // rd.put("proxy", "12.34.56.78:1234");
         // rd.put("affiliate_id", "your_affiliate_id");      // get it from /account
         int id = bcs.submit_hcaptcha(rd);
         String solution = "";
@@ -147,7 +151,7 @@ public class Program {
             solution = bcs.retrieve(id).getString("solution");
             Thread.sleep(2000);
         }
-        System.out.println(String.format("Capy solution: %s", solution));
+        System.out.println(String.format("Solution: %s", solution));
         // bcs.set_captcha_bad(id);       // set captcha bad using captcha ID
     }
     private static void test_funcaptcha() throws Exception{
@@ -171,6 +175,28 @@ public class Program {
         System.out.println(String.format("Solution: %s", solution));
         // bcs.set_captcha_bad(id);       // set captcha bad using captcha ID
     }
+    private static void test_task() throws Exception{
+        // get balance
+        String balance = bcs.account_balance();
+        System.out.println(String.format("Balance: %s", balance));
+
+        System.out.println("Solving task ...");
+        Map<String,String> rd = new HashMap<String, String>();
+        rd.put("template_name", "Login test page");
+        rd.put("page_url", "https://bestcaptchasolver.com/automation/login");
+        rd.put("variables", "{\"username\": \"xyz\", \"password\": \"0000\"}");
+        // rd.put("user_agent", "your UA");
+        // rd.put("proxy", "12.34.56.78:1234");
+        // rd.put("affiliate_id", "your_affiliate_id");      // optional, get it from /account
+        int id = bcs.submit_task(rd);
+        String solution = "";
+        while(solution.equals("")){          // while still in completion / solving process
+            solution = bcs.retrieve(id).getString("solution");
+            Thread.sleep(2000);
+        }
+        System.out.println(String.format("Solution: %s", solution));
+        // bcs.set_captcha_bad(id);       // set captcha bad using captcha ID
+    }
     // main/run method
     public static void main(String[] args) {
         try {
@@ -181,6 +207,7 @@ public class Program {
             // test_capy();
             // test_hcaptcha();
             // test_funcaptcha();
+            // test_task();
         }
         catch(Exception ex){
             System.out.println(String.format("[!] Error: %s", ex.getMessage()));

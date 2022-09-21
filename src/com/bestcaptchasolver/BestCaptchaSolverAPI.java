@@ -186,6 +186,31 @@ public class BestCaptchaSolverAPI {
         req_json.put("access_token", this._access_token);
         req_json.put("page_url", opts.get("page_url"));
         req_json.put("site_key", opts.get("site_key"));
+        if (opts.containsKey("invisible")) req_json.put("invisible", "1");
+        if (opts.containsKey("payload")) req_json.put("payload", opts.get("payload"));
+        if (opts.containsKey("user_agent")) req_json.put("user_agent", opts.get("user_agent"));
+        if (opts.containsKey("proxy")) req_json.put("proxy", opts.get("proxy"));
+        if (opts.containsKey("affiliate_id")) req_json.put("affiliate_id", opts.get("affiliate_id"));
+        JSONObject resp_json = Utils.POST(url, req_json);
+        return Integer.parseInt(resp_json.get("id").toString());
+    }
+
+    /**
+     * Submit task and get back captcha ID
+     * @param opts
+     * @return
+     * @throws Exception
+     */
+    public int submit_task(Map<String, String> opts) throws Exception{
+        String url = String.format("%s/captcha/task", this.BASE_URL);
+        JSONObject req_json = new JSONObject();
+        // add params to for request body to json object
+        req_json.put("access_token", this._access_token);
+        req_json.put("template_name", opts.get("template_name"));
+        req_json.put("page_url", opts.get("page_url"));
+        if (opts.containsKey("variables")) req_json.put("variables", opts.get("variables"));
+        if (opts.containsKey("user_agent")) req_json.put("user_agent", opts.get("user_agent"));
+        if (opts.containsKey("proxy")) req_json.put("proxy", opts.get("proxy"));
         if (opts.containsKey("affiliate_id")) req_json.put("affiliate_id", opts.get("affiliate_id"));
         JSONObject resp_json = Utils.POST(url, req_json);
         return Integer.parseInt(resp_json.get("id").toString());

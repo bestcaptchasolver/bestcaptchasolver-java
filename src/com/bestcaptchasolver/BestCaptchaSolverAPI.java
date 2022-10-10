@@ -217,6 +217,22 @@ public class BestCaptchaSolverAPI {
     }
 
     /**
+     * Push variables for task
+     * @param opts
+     * @return
+     * @throws Exception
+     */
+    public String task_push_variables(int id, String pushVariables) throws Exception{
+        String url = String.format("%s/captcha/task/pushVariables/%s", this.BASE_URL, id);
+        JSONObject req_json = new JSONObject();
+        // add params to for request body to json object
+        req_json.put("access_token", this._access_token);
+        req_json.put("pushVariables", pushVariables);
+        JSONObject resp_json = Utils.POST(url, req_json);
+        return resp_json.get("status").toString();
+    }
+
+    /**
      * Retrieve captcha [gresponse|text|solution] based on captcha ID
      * @param id
      * @return

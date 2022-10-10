@@ -187,7 +187,19 @@ rd.put("variables", "{\"username\": \"xyz\", \"password\": \"0000\"}");
 int id = bcs.submit_task(rd);
 ```
 
+#### Task pushVariables
+Update task variables while it is being solved by the worker. Useful when dealing with data / variables, of which
+value you don't know, only after a certain step or action of the task. For example, in websites that require 2 factor
+authentication code.
 
+When the task (while running on workers machine) is getting to an action defined in the template, that requires a variable, but variable was not
+set with the task submission, it will wait until the variable is updated through push.
+
+The `bcs.task_push_variables(captcha_id, push_variables)` method can be used as many times as it is needed.
+
+```java
+bcs.task_push_variables(id, "{\"tfa_code\": \"3495\"}");
+```
 
 ## Retrieve response (all captchas)
 

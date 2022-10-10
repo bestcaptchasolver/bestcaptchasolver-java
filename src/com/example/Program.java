@@ -189,6 +189,11 @@ public class Program {
         // rd.put("proxy", "12.34.56.78:1234");
         // rd.put("affiliate_id", "your_affiliate_id");      // optional, get it from /account
         int id = bcs.submit_task(rd);
+
+        // submit pushVariables while task is being solved by the worker
+        // very helpful, for e.g. in cases of 2FA authentication
+        // bcs.task_push_variables(id, "{\"tfa_code\": \"3495\"}");
+
         String solution = "";
         while(solution.equals("")){          // while still in completion / solving process
             solution = bcs.retrieve(id).getString("solution");

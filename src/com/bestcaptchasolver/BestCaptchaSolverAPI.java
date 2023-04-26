@@ -227,6 +227,29 @@ public class BestCaptchaSolverAPI {
     }
 
     /**
+     * Submit turnstile and get back captcha ID
+     * @param opts
+     * @return
+     * @throws Exception
+     */
+    public int submit_turnstile(Map<String, String> opts) throws Exception{
+        String url = String.format("%s/captcha/turnstile", this.BASE_URL);
+        JSONObject req_json = new JSONObject();
+        // add params to for request body to json object
+        req_json.put("access_token", this._access_token);
+        req_json.put("page_url", opts.get("page_url"));
+        req_json.put("site_key", opts.get("site_key"));
+        if (opts.containsKey("action")) req_json.put("action", opts.get("action"));
+        if (opts.containsKey("cdata")) req_json.put("cdata", opts.get("cdata"));
+        if (opts.containsKey("domain")) req_json.put("domain", opts.get("domain"));
+        if (opts.containsKey("user_agent")) req_json.put("user_agent", opts.get("user_agent"));
+        if (opts.containsKey("proxy")) req_json.put("proxy", opts.get("proxy"));
+        if (opts.containsKey("affiliate_id")) req_json.put("affiliate_id", opts.get("affiliate_id"));
+        JSONObject resp_json = Utils.POST(url, req_json);
+        return Integer.parseInt(resp_json.get("id").toString());
+    }
+
+    /**
      * Submit task and get back captcha ID
      * @param opts
      * @return

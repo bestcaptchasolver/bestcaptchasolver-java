@@ -187,6 +187,30 @@ public class Program {
         System.out.printf("Solution: %s%n", solution);
         // bcs.set_captcha_bad(id);       // set captcha bad using captcha ID
     }
+    private static void test_turnstile() throws Exception{
+        // get balance
+        String balance = bcs.account_balance();
+        System.out.printf("Balance: %s%n", balance);
+
+        System.out.println("Solving turnstile ...");
+        Map<String,String> rd = new HashMap<String, String>();
+        rd.put("page_url", "PAGE_URL_HERE");
+        rd.put("site_key", "SITE_KEY_HERE");
+        // rd.put("action", "taken from page source, optional");
+        // rd.put("cdata", "taken from page source, optional");
+        // rd.put("domain", "challenges.cloudflare.com");    // used in loading hcaptcha interface, optional
+        // rd.put("user_agent", "your UA");
+        // rd.put("proxy", "12.34.56.78:1234");
+        // rd.put("affiliate_id", "your_affiliate_id");      // get it from /account
+        int id = bcs.submit_turnstile(rd);
+        String solution = "";
+        while(solution.equals("")){          // while still in completion / solving process
+            solution = bcs.retrieve(id).getString("solution");
+            Thread.sleep(2000);
+        }
+        System.out.printf("Solution: %s%n", solution);
+        // bcs.set_captcha_bad(id);       // set captcha bad using captcha ID
+    }
     private static void test_task() throws Exception{
         // get balance
         String balance = bcs.account_balance();
@@ -224,6 +248,7 @@ public class Program {
             // test_capy();
             // test_hcaptcha();
             // test_funcaptcha();
+            // test_turnstile();
             // test_task();
         }
         catch(Exception ex){

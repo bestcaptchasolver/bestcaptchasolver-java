@@ -90,7 +90,7 @@ id = bcs.submit_recaptcha(rd);     // works with proxy as well, check bottom of 
 Same as before, this returns an ID which is used to regulary check for completion
 
 
-## Submit Geetest
+## Submit GeeTest
 - domain
 - gt
 - challenge
@@ -110,7 +110,7 @@ rd.put("challenge", "CHALLENGE_HERE");
 int id = bcs.submit_geetest(rd);
 ```
 
-## Submit GeetestV4
+## Submit GeeTestV4
 
 - domain
 - captchaid
@@ -188,6 +188,29 @@ rd.put("site_key", "11111111-1111-1111-1111-111111111111");
 int id = bcs.submit_funcaptcha(rd);
 ```
 
+## Submit Turnstile (Cloudflare)
+
+- page_url
+- site_key
+- action (optional)
+- cdata (optional)
+- domain (optional)
+- user_agent (optional)
+- proxy (optional)
+
+```java
+Map<String,String> rd = new HashMap<String, String>();
+rd.put("page_url", "PAGE_URL_HERE");
+rd.put("site_key", "SITE_KEY_HERE");
+// rd.put("action", "taken from page source, optional");
+// rd.put("cdata", "taken from page source, optional");
+// rd.put("domain", "challenges.cloudflare.com");    // used in loading hcaptcha interface, optional
+// rd.put("user_agent", "your UA");                  // optional
+// rd.put("proxy", "12.34.56.78:1234");              // optional
+// rd.put("affiliate_id", "your_affiliate_id");      // get it from /account
+int id = bcs.submit_turnstile(rd);
+```
+
 ## Submit Task
 
 - template_name
@@ -208,6 +231,7 @@ int id = bcs.submit_task(rd);
 ```
 
 #### Task pushVariables
+
 Update task variables while it is being solved by the worker. Useful when dealing with data / variables, of which
 value you don't know, only after a certain step or action of the task. For example, in websites that require 2 factor
 authentication code.

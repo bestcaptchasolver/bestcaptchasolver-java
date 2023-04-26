@@ -59,6 +59,7 @@ public class Program {
         //
         // rd.put("v3_action", "home");    // action used when solving v3 reCaptcha
         // rd.put("v3_min_score", "0.3");  // min score to target when solving v3
+        // rd.put("domain", "www.google.com");        // used in loading reCAPTCHA interface, optional
         // rd.put("data_s", "recaptcha data-s parameter used in loading reCAPTCHA");  // optional
         // rd.put("cookie_input", "a=b;c=d");  // used in solving reCAPTCHA, optional
         // rd.put("user_agent", "your user agent");        // UA used in solving captcha
@@ -150,6 +151,7 @@ public class Program {
         rd.put("site_key", "SITE_KEY_HERE");
         // rd.put("invisible", "1");
         // rd.put("payload", "{\"rqdata\": \"from web requests\"}");
+        // rd.put("domain", "hcaptcha.com");                 // used in loading hcaptcha interface, optional
         // rd.put("user_agent", "your UA");
         // rd.put("proxy", "12.34.56.78:1234");
         // rd.put("affiliate_id", "your_affiliate_id");      // get it from /account

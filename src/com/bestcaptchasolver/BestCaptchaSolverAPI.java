@@ -90,6 +90,7 @@ public class BestCaptchaSolverAPI {
         if (opts.containsKey("type")) req_json.put("type", opts.get("type"));
         if (opts.containsKey("v3_action")) req_json.put("v3_action", opts.get("v3_action"));
         if (opts.containsKey("v3_min_score")) req_json.put("v3_min_score", opts.get("v3_min_score"));
+        if (opts.containsKey("domain")) req_json.put("domain", opts.get("domain"));
         if (opts.containsKey("data_s")) req_json.put("data_s", opts.get("data_s"));
         if (opts.containsKey("cookie_input")) req_json.put("cookie_input", opts.get("cookie_input"));
         if (opts.containsKey("user_agent")) req_json.put("user_agent", opts.get("user_agent"));
@@ -217,6 +218,7 @@ public class BestCaptchaSolverAPI {
         req_json.put("site_key", opts.get("site_key"));
         if (opts.containsKey("invisible")) req_json.put("invisible", "1");
         if (opts.containsKey("payload")) req_json.put("payload", opts.get("payload"));
+        if (opts.containsKey("domain")) req_json.put("domain", opts.get("domain"));
         if (opts.containsKey("user_agent")) req_json.put("user_agent", opts.get("user_agent"));
         if (opts.containsKey("proxy")) req_json.put("proxy", opts.get("proxy"));
         if (opts.containsKey("affiliate_id")) req_json.put("affiliate_id", opts.get("affiliate_id"));

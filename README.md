@@ -72,6 +72,7 @@ For recaptcha submission there are two things that are required and some that ar
   - `5` - enterprise v3
 - v3_action (optional)
 - v3_min_score (optional)
+- domain (optional)
 - data_s (optional)
 - cookie_input (optional)
 - user_agent (optional)
@@ -150,6 +151,7 @@ int id = bcs.submit_capy(rd);
 - site_key
 - invisible (optional)
 - payload (optional)
+- domain (optional)
 - user_agent (optional)
 - proxy (optional)
 
@@ -159,6 +161,7 @@ rd.put("page_url", "PAGE_URL_HERE");
 rd.put("site_key", "SITE_KEY_HERE");
 // rd.put("invisible", "1");
 // rd.put("payload", "{\"rqdata\": \"from web requests\"}");
+// rd.put("domain", "hcaptcha.com");        		 // used in loading hcaptcha interface, optional
 // rd.put("user_agent", "your UA");
 // rd.put("proxy", "12.34.56.78:1234");
 // rd.put("affiliate_id", "your_affiliate_id");      // get it from /account

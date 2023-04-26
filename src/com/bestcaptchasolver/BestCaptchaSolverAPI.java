@@ -112,6 +112,14 @@ public class BestCaptchaSolverAPI {
         req_json.put("domain", opts.get("domain"));
         req_json.put("gt", opts.get("gt"));
         req_json.put("challenge", opts.get("challenge"));
+        // check for proxy
+        if(opts.containsKey("proxy"))
+        {
+            req_json.put("proxy", opts.get("proxy"));
+            req_json.put("proxy_type", "HTTP");     // only HTTP for now
+        }
+        if (opts.containsKey("user_agent")) req_json.put("user_agent", opts.get("user_agent"));
+        if (opts.containsKey("api_server")) req_json.put("api_server", opts.get("api_server"));
         if (opts.containsKey("affiliate_id")) req_json.put("affiliate_id", opts.get("affiliate_id"));
         JSONObject resp_json = Utils.POST(url, req_json);
         return Integer.parseInt(resp_json.get("id").toString());
@@ -130,6 +138,13 @@ public class BestCaptchaSolverAPI {
         req_json.put("access_token", this._access_token);
         req_json.put("domain", opts.get("domain"));
         req_json.put("captchaid", opts.get("captchaid"));
+        // check for proxy
+        if(opts.containsKey("proxy"))
+        {
+            req_json.put("proxy", opts.get("proxy"));
+            req_json.put("proxy_type", "HTTP");     // only HTTP for now
+        }
+        if (opts.containsKey("user_agent")) req_json.put("user_agent", opts.get("user_agent"));
         if (opts.containsKey("affiliate_id")) req_json.put("affiliate_id", opts.get("affiliate_id"));
         JSONObject resp_json = Utils.POST(url, req_json);
         return Integer.parseInt(resp_json.get("id").toString());
@@ -148,6 +163,13 @@ public class BestCaptchaSolverAPI {
         req_json.put("access_token", this._access_token);
         req_json.put("page_url", opts.get("page_url"));
         req_json.put("site_key", opts.get("site_key"));
+        // check for proxy
+        if(opts.containsKey("proxy"))
+        {
+            req_json.put("proxy", opts.get("proxy"));
+            req_json.put("proxy_type", "HTTP");     // only HTTP for now
+        }
+        if (opts.containsKey("user_agent")) req_json.put("user_agent", opts.get("user_agent"));
         if (opts.containsKey("affiliate_id")) req_json.put("affiliate_id", opts.get("affiliate_id"));
         JSONObject resp_json = Utils.POST(url, req_json);
         return Integer.parseInt(resp_json.get("id").toString());
@@ -168,6 +190,13 @@ public class BestCaptchaSolverAPI {
         req_json.put("s_url", opts.get("s_url"));
         req_json.put("site_key", opts.get("site_key"));
         if (opts.containsKey("data")) req_json.put("data", opts.get("data"));
+        // check for proxy
+        if(opts.containsKey("proxy"))
+        {
+            req_json.put("proxy", opts.get("proxy"));
+            req_json.put("proxy_type", "HTTP");     // only HTTP for now
+        }
+        if (opts.containsKey("user_agent")) req_json.put("user_agent", opts.get("user_agent"));
         if (opts.containsKey("affiliate_id")) req_json.put("affiliate_id", opts.get("affiliate_id"));
         JSONObject resp_json = Utils.POST(url, req_json);
         return Integer.parseInt(resp_json.get("id").toString());
@@ -218,7 +247,8 @@ public class BestCaptchaSolverAPI {
 
     /**
      * Push variables for task
-     * @param opts
+     * @param id
+     * @param pushVariables
      * @return
      * @throws Exception
      */

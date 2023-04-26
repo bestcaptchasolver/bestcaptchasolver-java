@@ -94,13 +94,17 @@ Same as before, this returns an ID which is used to regulary check for completio
 - gt
 - challenge
 - api_server (optional)
+- user_agent (optional)
+- proxy (optional)
 
 ```java
 Map<String,String> rd = new HashMap<String, String>();
 rd.put("domain", "DOMAIN_HERE");
 rd.put("gt", "GT_HERE");
 rd.put("challenge", "CHALLENGE_HERE");
-// rd.put("api_server", "GT_DOMAIN_HERE"); // optional
+// rd.put("api_server", "api server for geetest");   // optional
+// rd.put("user_agent", "your user agent");          // UA used in solving captcha
+// rd.put("proxy", "user:pass@191.123.43.34");       // proxy with/out authentication
 // rd.put("affiliate_id", "your_affiliate_id");      // get it from /account
 int id = bcs.submit_geetest(rd);
 ```
@@ -109,6 +113,8 @@ int id = bcs.submit_geetest(rd);
 
 - domain
 - captchaid
+- user_agent (optional)
+- proxy (optional)
 
 **Important:** This is not the captchaid that's in our system that you receive while submitting a captcha. Gather this from HTML source of page with geetestv4 captcha, inside the `<script>` tag you'll find a link that looks like this: https://i.imgur.com/XcZd47y.png
 
@@ -116,6 +122,9 @@ int id = bcs.submit_geetest(rd);
 Map<String,String> rd = new HashMap<String, String>();
 rd.put("domain", "https://example.com");
 rd.put("captchaid", "647f5ed2ed8acb4be36784e01556bb71");
+// rd.put("user_agent", "your user agent");          // UA used in solving captcha
+// rd.put("proxy", "user:pass@191.123.43.34");       // proxy with/out authentication
+// rd.put("affiliate_id", "your_affiliate_id");      // get it from /account
 int id = bcs.submit_geetest_v4(rd);
 ```
 
@@ -123,11 +132,15 @@ int id = bcs.submit_geetest_v4(rd);
 
 - page_url
 - site_key
+- user_agent (optional)
+- proxy (optional)
 
 ```java
 Map<String,String> rd = new HashMap<String, String>();
 rd.put("page_url", "PAGE_URL_HERE");
 rd.put("site_key", "SITE_KEY_HERE");
+// rd.put("user_agent", "your user agent");          // UA used in solving captcha
+// rd.put("proxy", "user:pass@191.123.43.34");       // proxy with/out authentication
 // rd.put("affiliate_id", "your_affiliate_id");      // get it from /account
 int id = bcs.submit_capy(rd);
 ```
@@ -157,6 +170,8 @@ int id = bcs.submit_hcaptcha(rd);
 - page_url
 - s_url
 - site_key
+- user_agent (optional)
+- proxy (optional)
 
 ```java
 Map<String,String> rd = new HashMap<String, String>();
@@ -164,7 +179,9 @@ rd.put("page_url", "https://abc.com");
 rd.put("s_url", "https://api.arkoselabs.com");
 rd.put("site_key", "11111111-1111-1111-1111-111111111111");
 // rd.put("data", "{\"x\":\"y\"}");      // optional
-// rd.put("affiliate_id", "your_affiliate_id");      // optional, get it from /account
+// rd.put("user_agent", "your user agent");          // UA used in solving captcha
+// rd.put("proxy", "user:pass@191.123.43.34");       // proxy with/out authentication
+// rd.put("affiliate_id", "your_affiliate_id");      // get it from /account
 int id = bcs.submit_funcaptcha(rd);
 ```
 
